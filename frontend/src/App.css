@@ -185,6 +185,8 @@
 
 .books-page {
   max-width: 960px;
+  min-height: 100vh;
+  color: #e5e7eb;
 }
 
 .tracking-wide {
@@ -193,21 +195,50 @@
 
 .books-controls-card {
   border-radius: 0.9rem;
+  border: 1px solid #334155;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(2px);
 }
 
 .book-card {
   border-radius: 0.9rem;
+  border: 1px solid #334155;
+  background: linear-gradient(160deg, #111827 0%, #0b1120 100%);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .book-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0.65rem 1.5rem rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 0.85rem 1.8rem rgba(0, 0, 0, 0.45) !important;
 }
 
 .book-card .list-group-item {
   padding-top: 0.65rem;
   padding-bottom: 0.65rem;
+  border-color: #2a364b;
+  background-color: transparent;
+  color: #f3f4f6;
+}
+
+.books-page .text-secondary {
+  color: #94a3b8 !important;
+}
+
+.books-page .text-success {
+  color: #34d399 !important;
+}
+
+.books-page {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(30, 64, 175, 0.22), transparent 40%),
+    radial-gradient(circle at 90% 20%, rgba(56, 189, 248, 0.12), transparent 35%),
+    linear-gradient(180deg, #020617 0%, #0f172a 100%);
+}
+
+html,
+body,
+#root {
+  background-color: #020617 !important;
 }
 
 @media (max-width: 576px) {

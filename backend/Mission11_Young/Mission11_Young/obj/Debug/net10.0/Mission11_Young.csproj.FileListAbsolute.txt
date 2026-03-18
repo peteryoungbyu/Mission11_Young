@@ -141,7 +141,6 @@ C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\Vis
 C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\staticwebassets.development.json
 C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\Mission1.85C3ECBC.Up2Date
 C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\Mission11_Young.dll
 C:\Users\peter\OneDrive - Brigham Young University\Desktop\JuniorCore\IS 413\VisualStudioLearning\Mission11_Young\backend\Mission11_Young\Mission11_Young\obj\Debug\net10.0\refint\Mission11_Young.dll

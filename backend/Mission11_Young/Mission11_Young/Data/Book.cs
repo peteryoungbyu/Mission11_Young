@@ -2,6 +2,7 @@
 
 namespace Mission11_Young.Data
 {
+    // Defines the structure for each book that will be gotten from the DB
     public class Book
     {
         [Key]

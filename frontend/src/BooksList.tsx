@@ -1,7 +1,12 @@
+// Peter Young 1-9
+// This is the component I created to show all books. It uses pagination to show only
+// a certain number per page. It allows the user to sort alphabetically or reverse alphabetically and to
+// choose how many books to display on each page. Shows the correct information for each book.
 import { useEffect, useState, type ChangeEvent } from 'react';
 import type { Book } from './types/Book';
 
 function BooksList() {
+  // Initializing State for books, currentPage, booksPerPage, and sortDirection.
   const [books, setBooks] = useState<Book[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(5);
@@ -9,6 +14,7 @@ function BooksList() {
     'none'
   );
 
+  //   Gets the books from the backend API and sets "books" using the data retrieved.
   useEffect(() => {
     const fetchBooks = async () => {
       const response = await fetch('https://localhost:5000/Books/AllBooks');
@@ -19,6 +25,7 @@ function BooksList() {
     fetchBooks();
   }, []);
 
+  //   sets the sort direction
   const sortedBooks =
     sortDirection === 'none'
       ? books
@@ -27,23 +34,26 @@ function BooksList() {
           return sortDirection === 'asc' ? comparison : -comparison;
         });
 
+  // Does the pagination. Determines how many pages will be needed,
+  // the index to start, and which are on the current page.
   const totalPages = Math.ceil(sortedBooks.length / booksPerPage);
   const startIndex = (currentPage - 1) * booksPerPage;
   const currentBooks = sortedBooks.slice(startIndex, startIndex + booksPerPage);
 
+  //Going to the page before it
   const goToPreviousPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
-
+  // Going to the next page
   const goToNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
-
+  //When the user changes the number of books listed per page, it goes back to the first page
   const handleBooksPerPageChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setBooksPerPage(Number(event.target.value));
     setCurrentPage(1);
   };
-
+  // Actually does the sorting
   const toggleSortByTitle = () => {
     setSortDirection((prev) => {
       if (prev === 'none' || prev === 'desc') return 'asc';
@@ -51,9 +61,9 @@ function BooksList() {
     });
     setCurrentPage(1);
   };
-
+  // The data displayed
   return (
-    <main className="container py-5 books-page">
+    <main className="container py-5 books-page" data-bs-theme="dark">
       <div className="text-center mb-4 mb-md-5">
         <p className="text-uppercase fw-semibold small tracking-wide text-secondary mb-2">
           Book Catalog
@@ -73,6 +83,7 @@ function BooksList() {
             >
               Books per page:
             </label>
+            {/* Where the user gets to select how many books per page */}
             <select
               id="booksPerPage"
               className="form-select w-auto"
@@ -87,16 +98,16 @@ function BooksList() {
               <option value={books.length}>All</option>
             </select>
           </div>
-
+          {/* Button for the user to sort alphabetically or reverse */}
           <button
-            className="btn btn-outline-dark px-3"
+            className="btn btn-outline-light px-3"
             onClick={toggleSortByTitle}
           >
             Sort by Title: {sortDirection === 'desc' ? 'A-Z' : 'Z-A'}
           </button>
         </div>
       </section>
-
+      {/* Actually displays each book and its information */}
       <section className="row g-4">
         {currentBooks.map((b) => (
           <div className="col-12" key={b.bookID}>
@@ -147,7 +158,7 @@ function BooksList() {
           </div>
         ))}
       </section>
-
+      {/* The page change buttons and display */}
       {totalPages > 1 && (
         <nav className="d-flex justify-content-center align-items-center gap-3 mt-5 mb-2">
           <button
