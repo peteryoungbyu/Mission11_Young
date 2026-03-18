@@ -11,5 +11,13 @@ namespace Mission11_Young.Controllers
         private BookDbContext _bookContext;
 
         public BooksController(BookDbContext temp) => _bookContext = temp;
+
+        [HttpGet("AllBooks")]
+        public IEnumerable<Book> Get()
+        {
+            var books = _bookContext.Books.ToList();
+            return books;
+        }
+
     }
 }

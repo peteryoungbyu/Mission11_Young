@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 namespace Mission11_Young.Data
 {
     public class BookDbContext : DbContext
