@@ -182,3 +182,38 @@
     border-right-color: var(--border);
   }
 }
+
+.books-page {
+  max-width: 960px;
+}
+
+.tracking-wide {
+  letter-spacing: 0.08em;
+}
+
+.books-controls-card {
+  border-radius: 0.9rem;
+}
+
+.book-card {
+  border-radius: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.65rem 1.5rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.book-card .list-group-item {
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+@media (max-width: 576px) {
+  .book-card .list-group-item {
+    gap: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}

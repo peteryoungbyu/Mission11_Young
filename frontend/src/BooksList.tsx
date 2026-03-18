@@ -53,72 +53,103 @@ function BooksList() {
   };
 
   return (
-    <>
-      <h1>Books</h1>
-      <div className="d-flex align-items-center gap-2 mb-3">
-        <label htmlFor="booksPerPage" className="form-label mb-0">
-          Books per page:
-        </label>
-        <select
-          id="booksPerPage"
-          className="form-select w-auto"
-          value={booksPerPage}
-          onChange={handleBooksPerPageChange}
-        >
-          <option value={3}>3</option>
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={15}>15</option>
-          <option value={20}>20</option>
-          <option value={books.length}>All</option>
-        </select>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={toggleSortByTitle}
-        >
-          Sort by Title: {sortDirection === 'desc' ? 'A-Z' : 'Z-A'}
-        </button>
+    <main className="container py-5 books-page">
+      <div className="text-center mb-4 mb-md-5">
+        <p className="text-uppercase fw-semibold small tracking-wide text-secondary mb-2">
+          Book Catalog
+        </p>
+        <h1 className="display-5 fw-bold mb-2">Books</h1>
+        <p className="text-secondary mb-0">
+          Browse, sort, and paginate the available titles.
+        </p>
       </div>
-      <br />
-      {currentBooks.map((b) => (
-        <div id="bookCard" className="card" key={b.bookID}>
-          <h3 className="card-title">{b.title}</h3>
-          <div className="card-body">
-            <ul className="list-unstyled">
-              <li>
-                <strong>Author: </strong>
-                {b.author}
-              </li>
-              <li>
-                <strong>Publisher: </strong>
-                {b.publisher}
-              </li>
-              <li>
-                <strong>ISBN: </strong>
-                {b.isbn}
-              </li>
-              <li>
-                <strong>Classification: </strong>
-                {b.classification}
-              </li>
-              <li>
-                <strong>Category: </strong>
-                {b.category}
-              </li>
-              <li>
-                <strong>Number of pages: </strong>
-                {b.pageCount}
-              </li>
-              <li>
-                <strong>Price: </strong>${b.price}
-              </li>
-            </ul>
+
+      <section className="card border-0 shadow-sm mb-4 books-controls-card">
+        <div className="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+          <div className="d-flex flex-wrap align-items-center gap-2">
+            <label
+              htmlFor="booksPerPage"
+              className="form-label mb-0 fw-semibold"
+            >
+              Books per page:
+            </label>
+            <select
+              id="booksPerPage"
+              className="form-select w-auto"
+              value={booksPerPage}
+              onChange={handleBooksPerPageChange}
+            >
+              <option value={3}>3</option>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+              <option value={20}>20</option>
+              <option value={books.length}>All</option>
+            </select>
           </div>
+
+          <button
+            className="btn btn-outline-dark px-3"
+            onClick={toggleSortByTitle}
+          >
+            Sort by Title: {sortDirection === 'desc' ? 'A-Z' : 'Z-A'}
+          </button>
         </div>
-      ))}
+      </section>
+
+      <section className="row g-4">
+        {currentBooks.map((b) => (
+          <div className="col-12" key={b.bookID}>
+            <article
+              id="bookCard"
+              className="card border-0 shadow-sm h-100 book-card"
+            >
+              <div className="card-header border-0 bg-transparent pb-0">
+                <h3 className="h4 fw-semibold mb-1">{b.title}</h3>
+              </div>
+              <div className="card-body pt-2">
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item px-0 d-flex justify-content-between">
+                    <span className="fw-semibold text-secondary">Author</span>
+                    <span>{b.author}</span>
+                  </li>
+                  <li className="list-group-item px-0 d-flex justify-content-between">
+                    <span className="fw-semibold text-secondary">
+                      Publisher
+                    </span>
+                    <span>{b.publisher}</span>
+                  </li>
+                  <li className="list-group-item px-0 d-flex justify-content-between">
+                    <span className="fw-semibold text-secondary">ISBN</span>
+                    <span>{b.isbn}</span>
+                  </li>
+                  <li className="list-group-item px-0 d-flex justify-content-between">
+                    <span className="fw-semibold text-secondary">
+                      Classification
+                    </span>
+                    <span>{b.classification}</span>
+                  </li>
+                  <li className="list-group-item px-0 d-flex justify-content-between">
+                    <span className="fw-semibold text-secondary">Category</span>
+                    <span>{b.category}</span>
+                  </li>
+                  <li className="list-group-item px-0 d-flex justify-content-between">
+                    <span className="fw-semibold text-secondary">Pages</span>
+                    <span>{b.pageCount}</span>
+                  </li>
+                  <li className="list-group-item px-0 d-flex justify-content-between border-bottom-0">
+                    <span className="fw-semibold text-secondary">Price</span>
+                    <span className="fw-bold text-success">${b.price}</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        ))}
+      </section>
 
       {totalPages > 1 && (
-        <div className="d-flex justify-content-center align-items-center gap-3 mt-4 mb-4">
+        <nav className="d-flex justify-content-center align-items-center gap-3 mt-5 mb-2">
           <button
             className="btn btn-outline-primary"
             onClick={goToPreviousPage}
@@ -126,7 +157,7 @@ function BooksList() {
           >
             Previous
           </button>
-          <span>
+          <span className="fw-semibold text-secondary">
             Page {currentPage} of {totalPages}
           </span>
           <button
@@ -136,9 +167,9 @@ function BooksList() {
           >
             Next
           </button>
-        </div>
+        </nav>
       )}
-    </>
+    </main>
   );
 }
 export default BooksList;
