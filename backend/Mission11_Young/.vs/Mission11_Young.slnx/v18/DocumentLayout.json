@@ -52,7 +52,7 @@
               "RelativeDocumentMoniker": "Mission11_Young\\Data\\Book.cs",
               "ToolTip": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\Book.cs",
               "RelativeToolTip": "Mission11_Young\\Data\\Book.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAAA0AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-18T15:00:52.885Z",
               "EditorCaption": ""
@@ -67,8 +67,7 @@
               "RelativeToolTip": "Mission11_Young\\Controllers\\BooksController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T14:58:51.726Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-18T14:58:51.726Z"
             },
             {
               "$type": "Document",
