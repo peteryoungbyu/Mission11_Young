@@ -6,13 +6,21 @@ namespace Mission11_Young.Data
     {
         [Key]
         public int BookID { get; set; }
-        public string? Title { get; set; }
-        public string? Author { get; set; }
-        public string? Publisher { get; set; }
-        public string? ISBN { get; set; }
-        public string? Classification { get; set; }
-        public string? Category { get; set; }
-        public int? PageCount { get; set; }
-        public float? Price { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
+        public string Author { get; set; }
+        [Required]
+        public string Publisher { get; set; }
+        [Required]
+        public string ISBN { get; set; }
+        [Required]
+        public string Classification { get; set; }
+        [Required]
+        public string Category { get; set; }
+        [Required]
+        public int PageCount { get; set; }
+        [Required]
+        public float Price { get; set; }
     }
 }

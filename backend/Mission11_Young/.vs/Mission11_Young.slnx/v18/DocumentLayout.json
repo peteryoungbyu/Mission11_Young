@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|c:\\users\\peter\\onedrive - brigham young university\\desktop\\juniorcore\\is 413\\visualstudiolearning\\mission11_young\\backend\\mission11_young\\mission11_young\\data\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|solutionrelative:mission11_young\\data\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|c:\\users\\peter\\onedrive - brigham young university\\desktop\\juniorcore\\is 413\\visualstudiolearning\\mission11_young\\backend\\mission11_young\\mission11_young\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|solutionrelative:mission11_young\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|c:\\users\\peter\\onedrive - brigham young university\\desktop\\juniorcore\\is 413\\visualstudiolearning\\mission11_young\\backend\\mission11_young\\mission11_young\\data\\bookdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|solutionrelative:mission11_young\\data\\bookdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|c:\\users\\peter\\onedrive - brigham young university\\desktop\\juniorcore\\is 413\\visualstudiolearning\\mission11_young\\backend\\mission11_young\\mission11_young\\data\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|solutionrelative:mission11_young\\data\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{26D82B1C-0731-53C0-8F5E-7A0AF6602129}|Mission11_Young\\Mission11_Young.csproj|c:\\users\\peter\\onedrive - brigham young university\\desktop\\juniorcore\\is 413\\visualstudiolearning\\mission11_young\\backend\\mission11_young\\mission11_young\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,33 +46,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BookDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\BookDbContext.cs",
-              "RelativeDocumentMoniker": "Mission11_Young\\Data\\BookDbContext.cs",
-              "ToolTip": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\BookDbContext.cs",
-              "RelativeToolTip": "Mission11_Young\\Data\\BookDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T15:01:10.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Book.cs",
               "DocumentMoniker": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\Book.cs",
               "RelativeDocumentMoniker": "Mission11_Young\\Data\\Book.cs",
               "ToolTip": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\Book.cs",
               "RelativeToolTip": "Mission11_Young\\Data\\Book.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAA0AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-18T15:00:52.885Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "BooksController.cs",
               "DocumentMoniker": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Controllers\\BooksController.cs",
               "RelativeDocumentMoniker": "Mission11_Young\\Controllers\\BooksController.cs",
@@ -85,6 +72,18 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\BookDbContext.cs",
+              "RelativeDocumentMoniker": "Mission11_Young\\Data\\BookDbContext.cs",
+              "ToolTip": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Data\\BookDbContext.cs",
+              "RelativeToolTip": "Mission11_Young\\Data\\BookDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T15:01:10.508Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\peter\\OneDrive - Brigham Young University\\Desktop\\JuniorCore\\IS 413\\VisualStudioLearning\\Mission11_Young\\backend\\Mission11_Young\\Mission11_Young\\Program.cs",
@@ -93,8 +92,7 @@
               "RelativeToolTip": "Mission11_Young\\Program.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T15:04:03.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-18T15:04:03.146Z"
             },
             {
               "$type": "Document",

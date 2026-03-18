@@ -55,6 +55,16 @@
   "components": {
     "schemas": {
       "Book": {
+        "required": [
+          "title",
+          "author",
+          "publisher",
+          "isbn",
+          "classification",
+          "category",
+          "pageCount",
+          "price"
+        ],
         "type": "object",
         "properties": {
           "bookID": {
@@ -66,45 +76,26 @@
             "format": "int32"
           },
           "title": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "author": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "publisher": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "isbn": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "classification": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "category": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           },
           "pageCount": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
-              "null",
               "integer",
               "string"
             ],
@@ -113,7 +104,6 @@
           "price": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
             "type": [
-              "null",
               "number",
               "string"
             ],
