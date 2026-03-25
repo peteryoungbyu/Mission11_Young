@@ -173,7 +173,9 @@ function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
                   </li>
                   <button
                     className="btn btn-success"
-                    onClick={() => navigate(`/purchase/${b.title}/${b.bookID}`)}
+                    onClick={() =>
+                      navigate(`/purchase/${b.title}/${b.bookID}/${b.price}`)
+                    }
                   >
                     Purchase
                   </button>

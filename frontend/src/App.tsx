@@ -16,7 +16,10 @@ function App() {
           <Routes>
             <Route path="/" element={<BooksPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/purchase/:title/:bookID" element={<PurchasePage />} />
+            <Route
+              path="/purchase/:title/:bookID/:price"
+              element={<PurchasePage />}
+            />
           </Routes>
         </Router>
       </CartProvider>

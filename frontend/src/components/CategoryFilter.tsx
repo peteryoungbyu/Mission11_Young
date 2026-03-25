@@ -36,7 +36,8 @@ function CategoryFilter({
 
   return (
     <div className="category-filter">
-      <h5>Book Categories</h5>
+      <h5 className="category-filter-title">Book Categories</h5>
+      <p className="category-filter-subtitle">Filter by one or more genres.</p>
       <div className="category-list">
         {categories.map((c) => (
           <div key={c} className="category-item">
@@ -45,6 +46,7 @@ function CategoryFilter({
               type="checkbox"
               id={c}
               value={c}
+              checked={selectedCategories.includes(c)}
               onChange={handleCheckboxChange}
             />
             <label htmlFor={c}>{c}</label>

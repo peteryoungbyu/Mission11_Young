@@ -1,6 +1,6 @@
 function Header() {
   return (
-    <div className="text-center mb-4 mb-md-5">
+    <div className="text-center">
       <p className="text-uppercase fw-semibold small tracking-wide text-secondary mb-2">
         Book Catalog
       </p>

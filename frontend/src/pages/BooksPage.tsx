@@ -9,18 +9,25 @@ function BooksPage() {
   return (
     <>
       <main className="container py-5 books-page" data-bs-theme="dark">
-        <CartSummary />
-        <Header />
         <div className="row">
-          <div className="col-md-3">
-            <CategoryFilter
-              selectedCategories={selectedCategories}
-              setSelectedCategories={setSelectedCategories}
-            />
+          <div className="col-md-12">
+            <Header />
           </div>
+
+          <div className="col-md-3">
+            <CartSummary />
+            <div className="filter">
+              <CategoryFilter
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+              />
+            </div>
+          </div>
+
           <div className="col-md-6">
             <BooksList selectedCategories={selectedCategories} />
           </div>
+
           <div className="col-md-3"></div>
         </div>
       </main>
