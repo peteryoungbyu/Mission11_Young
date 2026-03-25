@@ -1,4 +1,4 @@
-//Adds the "App" component which holds my BooksList component.
+//Adds the "App" component which holds the routes.
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';

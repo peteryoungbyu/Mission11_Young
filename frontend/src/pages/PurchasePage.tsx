@@ -1,3 +1,4 @@
+// This page shows when the user begins a purchase. It allows them to indicate the quantity and then add them to the cart.
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import type { CartItem } from '../types/CartItem';

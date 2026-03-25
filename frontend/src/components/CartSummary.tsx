@@ -1,3 +1,4 @@
+// The cart icon with the total that shows up on the bookslist page
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 

@@ -1,3 +1,5 @@
+// Main page of the website. Displays all books and the filter and the header.
+
 import BooksList from '../components/BooksList';
 import '../App.css';
 import CategoryFilter from '../components/CategoryFilter';
@@ -14,9 +16,9 @@ function BooksPage() {
       >
         <div className="row g-4">
           <div className="col-12 col-md-3">
-            <div className="books-sidebar books-sidebar-sticky">
+            <div className="books-sidebar books-sidebar-sticky shadow-sm">
               <CartSummary />
-              <div className="category-box">
+              <div className="category-box shadow-sm">
                 <CategoryFilter
                   selectedCategories={selectedCategories}
                   setSelectedCategories={setSelectedCategories}

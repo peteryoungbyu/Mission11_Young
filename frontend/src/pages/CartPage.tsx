@@ -1,3 +1,5 @@
+// This page shows what is in the cart. It allows the user to delete what is in the cart or continue shopping
+
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import type { CartItem } from '../types/CartItem';

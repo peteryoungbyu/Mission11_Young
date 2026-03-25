@@ -1,3 +1,5 @@
+// Context file for the cart
+
 import { createContext, type ReactNode, useContext, useState } from 'react';
 import type { CartItem } from '../types/CartItem';
 

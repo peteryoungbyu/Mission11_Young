@@ -1,3 +1,5 @@
+// Category Filter component. It shows up on the bookslist page to let the user limit by category
+
 import { useEffect, useState } from 'react';
 import './CategoryFilter.css';
 
@@ -42,14 +44,16 @@ function CategoryFilter({
         {categories.map((c) => (
           <div key={c} className="category-item">
             <input
-              className="category-checkbox"
+              className="category-checkbox form-check-input"
               type="checkbox"
               id={c}
               value={c}
               checked={selectedCategories.includes(c)}
               onChange={handleCheckboxChange}
             />
-            <label htmlFor={c}>{c}</label>
+            <label htmlFor={c} className="badge bg-secondary">
+              {c}
+            </label>
           </div>
         ))}
       </div>

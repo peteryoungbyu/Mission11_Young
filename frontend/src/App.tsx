@@ -1,4 +1,4 @@
-//App typescript file. Adds the "BooksList" component I created
+//App typescript file. Defines routes for different pages
 
 import './App.css';
 
