@@ -1,7 +1,7 @@
 .category-filter {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    /* align-items: stretch; */
     color: #e5e7eb;
 }
 

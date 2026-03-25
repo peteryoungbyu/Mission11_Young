@@ -8,27 +8,29 @@ function BooksPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   return (
     <>
-      <main className="container py-5 books-page" data-bs-theme="dark">
-        <div className="row">
-          <div className="col-md-12">
-            <Header />
-          </div>
-
-          <div className="col-md-3">
-            <CartSummary />
-            <div className="filter">
-              <CategoryFilter
-                selectedCategories={selectedCategories}
-                setSelectedCategories={setSelectedCategories}
-              />
+      <main
+        className="container py-5 books-page gx-4 gy-1"
+        data-bs-theme="dark"
+      >
+        <div className="row g-4">
+          <div className="col-12 col-md-3">
+            <div className="books-sidebar books-sidebar-sticky">
+              <CartSummary />
+              <div className="category-box">
+                <CategoryFilter
+                  selectedCategories={selectedCategories}
+                  setSelectedCategories={setSelectedCategories}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="col-md-6">
+          <div className="col-12 col-md-6">
+            <Header />
             <BooksList selectedCategories={selectedCategories} />
           </div>
 
-          <div className="col-md-3"></div>
+          <div className="d-none d-md-block col-md-3"></div>
         </div>
       </main>
     </>

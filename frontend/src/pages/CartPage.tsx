@@ -10,14 +10,16 @@ function CartPage() {
 
   return (
     <main className="container py-5 books-page cart-page" data-bs-theme="dark">
-      <div className="text-center mb-4 mb-md-5">
-        <p className="text-uppercase fw-semibold small tracking-wide text-secondary mb-2">
-          Checkout
-        </p>
-        <h2 className="display-6 fw-bold mb-2">Your Cart</h2>
-        <p className="text-secondary mb-0">
-          Review your selected books before checkout.
-        </p>
+      <div className="row">
+        <div className="text-center mb-4 mb-md-5">
+          <p className="text-uppercase fw-semibold small tracking-wide text-secondary mb-2">
+            Checkout
+          </p>
+          <h2 className="display-6 fw-bold mb-2">Your Cart</h2>
+          <p className="text-secondary mb-0">
+            Review your selected books before checkout.
+          </p>
+        </div>
       </div>
 
       <div className="row g-4">
@@ -73,24 +75,27 @@ function CartPage() {
           </>
         )}
       </div>
-
-      <section className="card border-0 shadow-sm mt-4 books-controls-card cart-total-card">
-        <div className="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-          <h3 className="h5 mb-0 text-secondary">
-            Cart Total:{' '}
-            <strong className="text-success">${totalAmount.toFixed(2)}</strong>
-          </h3>
-          <div className="d-flex gap-2">
-            <button className="btn btn-primary">Checkout</button>
-            <button
-              className="btn btn-outline-light"
-              onClick={() => navigate('/')}
-            >
-              Continue Browsing
-            </button>
+      <div className="row">
+        <section className="card border-0 shadow-sm mt-4 books-controls-card cart-total-card">
+          <div className="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <h3 className="h5 mb-0 text-secondary">
+              Cart Total:{' '}
+              <strong className="text-success">
+                ${totalAmount.toFixed(2)}
+              </strong>
+            </h3>
+            <div className="d-flex gap-2">
+              <button className="btn btn-primary">Checkout</button>
+              <button
+                className="btn btn-outline-light"
+                onClick={() => navigate('/')}
+              >
+                Continue Browsing
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }
