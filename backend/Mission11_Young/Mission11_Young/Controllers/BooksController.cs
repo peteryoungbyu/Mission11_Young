@@ -15,33 +15,48 @@ namespace Mission11_Young.Controllers
 
         // The get request we use on the frontend to retrieve the books
         [HttpGet("AllBooks")]
-    public IActionResult Get(int pageHowMany, int pageNum, [FromQuery] string sortDirection = "none")
-    {
-        var query = _bookContext.Books.AsQueryable();
-
-        // Handle sorting on the backend so pagination remains accurate across all data
-        if (sortDirection == "asc")
+        public IActionResult Get(int pageHowMany, int pageNum, [FromQuery] string sortDirection = "none", [FromQuery] List<string>? bookCategories = null)
         {
-            query = query.OrderBy(b => b.Title);
+            var query = _bookContext.Books.AsQueryable();
+
+            if (bookCategories != null && bookCategories.Any())
+            {
+                query = query.Where(b => bookCategories.Contains(b.Category));
+            }
+
+            // Handle sorting on the backend so pagination remains accurate across all data
+            if (sortDirection == "asc")
+            {
+                query = query.OrderBy(b => b.Title);
+            }
+            else if (sortDirection == "desc")
+            {
+                query = query.OrderByDescending(b => b.Title);
+            }
+
+            var totalNumBooks = query.Count();
+
+            var paginatedBooks = query
+                .Skip((pageNum - 1) * pageHowMany)
+                .Take(pageHowMany)
+                .ToList();
+
+            return Ok(new
+            {
+                Books = paginatedBooks,
+                TotalNumBooks = totalNumBooks
+            });
         }
-        else if (sortDirection == "desc")
+
+        [HttpGet("GetBookCategories")]
+        public IActionResult GetBookCategories()
         {
-            query = query.OrderByDescending(b => b.Title);
+            var bookCategories = _bookContext.Books
+                .Select(b => b.Category)
+                .Distinct()
+                .ToList();
+            return Ok(bookCategories);
         }
-
-        var totalNumBooks = query.Count();
-
-        var paginatedBooks = query
-            .Skip((pageNum - 1) * pageHowMany)
-            .Take(pageHowMany)
-            .ToList();
-
-        return Ok(new
-        {
-            Books = paginatedBooks,
-            TotalNumBooks = totalNumBooks
-        });
-    }
 
     }
 }

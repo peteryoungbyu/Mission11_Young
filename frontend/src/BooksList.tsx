@@ -5,7 +5,7 @@
 import { useEffect, useState, type ChangeEvent } from 'react';
 import type { Book } from './types/Book';
 
-function BooksList() {
+function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
   // Initializing State for books, pagination, and sorting.
   const [books, setBooks] = useState<Book[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,20 +21,30 @@ function BooksList() {
   // Gets the paginated and sorted books from the backend API
   useEffect(() => {
     const fetchBooks = async () => {
-      // Passing state variables as query parameters to the backend
-      const response = await fetch(
-        `https://localhost:5000/Books/AllBooks?pageHowMany=${booksPerPage}&pageNum=${currentPage}&sortDirection=${sortDirection}`
-      );
-      const data = await response.json();
+      try {
+        const categoryParams = selectedCategories
+          .map((cat) => `bookCategories=${encodeURIComponent(cat)}`)
+          .join('&');
+        const response = await fetch(
+          `https://localhost:5000/Books/AllBooks?pageHowMany=${booksPerPage}&pageNum=${currentPage}&sortDirection=${sortDirection}&${selectedCategories.length ? `&${categoryParams}` : ''}`
+        );
+        const data = await response.json();
 
-      // Setting state using the new object structure returned by the API
-      setBooks(data.books);
-      setTotalBooksCount(data.totalNumBooks);
-      setTotalPages(Math.ceil(data.totalNumBooks / booksPerPage));
+        setBooks(data.books);
+        setTotalBooksCount(data.totalNumBooks);
+        setTotalPages(Math.ceil(data.totalNumBooks / booksPerPage));
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch books');
+        }
+      } catch (error) {
+        console.error('Error fetching books:', error);
+        throw error;
+      }
     };
 
     fetchBooks();
-  }, [currentPage, booksPerPage, sortDirection]); // Re-runs whenever these change
+  }, [currentPage, booksPerPage, sortDirection, selectedCategories]); // Re-runs whenever these change
 
   // Going to the page before it
   const goToPreviousPage = () => {
@@ -63,17 +73,7 @@ function BooksList() {
 
   // The data displayed
   return (
-    <main className="container py-5 books-page" data-bs-theme="dark">
-      <div className="text-center mb-4 mb-md-5">
-        <p className="text-uppercase fw-semibold small tracking-wide text-secondary mb-2">
-          Book Catalog
-        </p>
-        <h1 className="display-5 fw-bold mb-2">Books</h1>
-        <p className="text-secondary mb-0">
-          Browse, sort, and paginate the available titles.
-        </p>
-      </div>
-
+    <>
       <section className="card border-0 shadow-sm mb-4 books-controls-card">
         <div className="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
           <div className="d-flex flex-wrap align-items-center gap-2">
@@ -185,7 +185,7 @@ function BooksList() {
           </button>
         </nav>
       )}
-    </main>
+    </>
   );
 }
 
