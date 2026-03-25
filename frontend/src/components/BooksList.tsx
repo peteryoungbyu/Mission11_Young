@@ -3,7 +3,8 @@
 // a certain number per page. It allows the user to sort alphabetically or reverse alphabetically and to
 // choose how many books to display on each page. Shows the correct information for each book.
 import { useEffect, useState, type ChangeEvent } from 'react';
-import type { Book } from './types/Book';
+import type { Book } from '../types/Book';
+import { useNavigate } from 'react-router-dom';
 
 function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
   // Initializing State for books, pagination, and sorting.
@@ -17,6 +18,8 @@ function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
   // New state variables to track totals coming from the backend
   const [totalPages, setTotalPages] = useState(0);
   const [totalBooksCount, setTotalBooksCount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   // Gets the paginated and sorted books from the backend API
   useEffect(() => {
@@ -28,18 +31,23 @@ function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
         const response = await fetch(
           `https://localhost:5000/Books/AllBooks?pageHowMany=${booksPerPage}&pageNum=${currentPage}&sortDirection=${sortDirection}&${selectedCategories.length ? `&${categoryParams}` : ''}`
         );
-        const data = await response.json();
-
-        setBooks(data.books);
-        setTotalBooksCount(data.totalNumBooks);
-        setTotalPages(Math.ceil(data.totalNumBooks / booksPerPage));
-
         if (!response.ok) {
           throw new Error('Failed to fetch books');
         }
+
+        const data = await response.json();
+        setErrorMessage('');
+        setBooks(data.books ?? []);
+        setTotalBooksCount(data.totalNumBooks ?? 0);
+        setTotalPages(Math.ceil((data.totalNumBooks ?? 0) / booksPerPage));
       } catch (error) {
         console.error('Error fetching books:', error);
-        throw error;
+        setBooks([]);
+        setTotalBooksCount(0);
+        setTotalPages(0);
+        setErrorMessage(
+          'Unable to load books right now. Make sure the backend is running on https://localhost:5000.'
+        );
       }
     };
 
@@ -113,6 +121,13 @@ function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
 
       {/* Displays the paginated books directly from state */}
       <section className="row g-4">
+        {errorMessage && (
+          <div className="col-12">
+            <div className="alert alert-warning" role="alert">
+              {errorMessage}
+            </div>
+          </div>
+        )}
         {books.map((b) => (
           <div className="col-12" key={b.bookID}>
             <article
@@ -156,6 +171,12 @@ function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
                     <span className="fw-semibold text-secondary">Price</span>
                     <span className="fw-bold text-success">${b.price}</span>
                   </li>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate(`/purchase/${b.title}/${b.bookID}`)}
+                  >
+                    Purchase
+                  </button>
                 </ul>
               </div>
             </article>
