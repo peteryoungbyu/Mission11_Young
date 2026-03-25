@@ -1,12 +1,12 @@
 // Peter Young 1-9
-// This is the component I created to show all books. It uses pagination to show only
+// This is the component I created to show all books. It uses backend pagination to show only
 // a certain number per page. It allows the user to sort alphabetically or reverse alphabetically and to
 // choose how many books to display on each page. Shows the correct information for each book.
 import { useEffect, useState, type ChangeEvent } from 'react';
 import type { Book } from './types/Book';
 
 function BooksList() {
-  // Initializing State for books, currentPage, booksPerPage, and sortDirection.
+  // Initializing State for books, pagination, and sorting.
   const [books, setBooks] = useState<Book[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(5);
@@ -14,46 +14,45 @@ function BooksList() {
     'none'
   );
 
-  //   Gets the books from the backend API and sets "books" using the data retrieved.
+  // New state variables to track totals coming from the backend
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalBooksCount, setTotalBooksCount] = useState(0);
+
+  // Gets the paginated and sorted books from the backend API
   useEffect(() => {
     const fetchBooks = async () => {
-      const response = await fetch('https://localhost:5000/Books/AllBooks');
+      // Passing state variables as query parameters to the backend
+      const response = await fetch(
+        `https://localhost:5000/Books/AllBooks?pageHowMany=${booksPerPage}&pageNum=${currentPage}&sortDirection=${sortDirection}`
+      );
       const data = await response.json();
-      setBooks(data);
+
+      // Setting state using the new object structure returned by the API
+      setBooks(data.books);
+      setTotalBooksCount(data.totalNumBooks);
+      setTotalPages(Math.ceil(data.totalNumBooks / booksPerPage));
     };
 
     fetchBooks();
-  }, []);
+  }, [currentPage, booksPerPage, sortDirection]); // Re-runs whenever these change
 
-  //   sets the sort direction
-  const sortedBooks =
-    sortDirection === 'none'
-      ? books
-      : [...books].sort((a, b) => {
-          const comparison = a.title.localeCompare(b.title);
-          return sortDirection === 'asc' ? comparison : -comparison;
-        });
-
-  // Does the pagination. Determines how many pages will be needed,
-  // the index to start, and which are on the current page.
-  const totalPages = Math.ceil(sortedBooks.length / booksPerPage);
-  const startIndex = (currentPage - 1) * booksPerPage;
-  const currentBooks = sortedBooks.slice(startIndex, startIndex + booksPerPage);
-
-  //Going to the page before it
+  // Going to the page before it
   const goToPreviousPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
+
   // Going to the next page
   const goToNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
-  //When the user changes the number of books listed per page, it goes back to the first page
+
+  // When the user changes the number of books listed per page, it goes back to the first page
   const handleBooksPerPageChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setBooksPerPage(Number(event.target.value));
     setCurrentPage(1);
   };
-  // Actually does the sorting
+
+  // Toggles the sort direction, triggering a re-fetch via useEffect
   const toggleSortByTitle = () => {
     setSortDirection((prev) => {
       if (prev === 'none' || prev === 'desc') return 'asc';
@@ -61,6 +60,7 @@ function BooksList() {
     });
     setCurrentPage(1);
   };
+
   // The data displayed
   return (
     <main className="container py-5 books-page" data-bs-theme="dark">
@@ -95,7 +95,10 @@ function BooksList() {
               <option value={10}>10</option>
               <option value={15}>15</option>
               <option value={20}>20</option>
-              <option value={books.length}>All</option>
+              {/* Uses the total count from the API for the "All" option */}
+              <option value={totalBooksCount > 0 ? totalBooksCount : 100}>
+                All
+              </option>
             </select>
           </div>
           {/* Button for the user to sort alphabetically or reverse */}
@@ -107,9 +110,10 @@ function BooksList() {
           </button>
         </div>
       </section>
-      {/* Actually displays each book and its information */}
+
+      {/* Displays the paginated books directly from state */}
       <section className="row g-4">
-        {currentBooks.map((b) => (
+        {books.map((b) => (
           <div className="col-12" key={b.bookID}>
             <article
               id="bookCard"
@@ -158,6 +162,7 @@ function BooksList() {
           </div>
         ))}
       </section>
+
       {/* The page change buttons and display */}
       {totalPages > 1 && (
         <nav className="d-flex justify-content-center align-items-center gap-3 mt-5 mb-2">
@@ -183,4 +188,5 @@ function BooksList() {
     </main>
   );
 }
+
 export default BooksList;
