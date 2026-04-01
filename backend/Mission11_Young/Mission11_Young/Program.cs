@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Mission11_Young.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+const string CorsPolicy = "AllowFrontend";
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -14,11 +15,14 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<BookDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("BookstoreConnection")));
 
-//Adds cors to allow requests
-builder.Services.AddCors(options => 
-    options.AddPolicy("AllowReactAppBlah",
-    policy => {
-        policy.AllowAnyOrigin()
+// Adds CORS for known frontend origins.
+builder.Services.AddCors(options =>
+    options.AddPolicy(CorsPolicy,
+    policy =>
+    {
+        policy.WithOrigins(
+            "https://zealous-dune-00e9af703.2.azurestaticapps.net",
+            "http://localhost:3000")
         .AllowAnyMethod()
         .AllowAnyHeader();
     }));
@@ -31,10 +35,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-//Sets where to allow requests from
-app.UseCors("AllowReactAppBlah");
-
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+// Sets where to allow cross-origin requests from.
+app.UseCors(CorsPolicy);
 
 app.UseAuthorization();
 
