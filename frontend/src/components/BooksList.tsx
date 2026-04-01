@@ -2,129 +2,129 @@
 // This is the component I created to show all books. It uses backend pagination to show only
 // a certain number per page. It allows the user to sort alphabetically or reverse alphabetically and to
 // choose how many books to display on each page. Shows the correct information for each book.
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import type { Book } from '../types/Book';
 import { useNavigate } from 'react-router-dom';
+import { deleteBook, fetchBooks } from '../api/BooksAPI';
+import Pagination from './Pagination';
+import NewBookForm from './NewBookForm';
+import EditBookForm from './EditBookForm';
 
 function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
   // Initializing State for books, pagination, and sorting.
   const [books, setBooks] = useState<Book[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage, setBooksPerPage] = useState(5);
-  const [sortDirection, setSortDirection] = useState<'none' | 'asc' | 'desc'>(
-    'none'
-  );
-
+  const [pageNum, setPageNum] = useState(1);
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [loading, setLoading] = useState(true);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   // New state variables to track totals coming from the backend
   const [totalPages, setTotalPages] = useState(0);
-  const [totalBooksCount, setTotalBooksCount] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [showForm, setShowForm] = useState(false);
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
 
   // Gets the paginated and sorted books from the backend API
   useEffect(() => {
-    const fetchBooks = async () => {
+    const loadBooks = async () => {
       try {
-        const categoryParams = selectedCategories
-          .map((cat) => `bookCategories=${encodeURIComponent(cat)}`)
-          .join('&');
-        const response = await fetch(
-          `https://localhost:5000/Books/AllBooks?pageHowMany=${booksPerPage}&pageNum=${currentPage}&sortDirection=${sortDirection}&${selectedCategories.length ? `&${categoryParams}` : ''}`
+        setLoading(true);
+        const data = await fetchBooks(
+          pageSize,
+          pageNum,
+          sortDirection,
+          selectedCategories
         );
-        if (!response.ok) {
-          throw new Error('Failed to fetch books');
-        }
-
-        const data = await response.json();
-        setErrorMessage('');
-        setBooks(data.books ?? []);
-        setTotalBooksCount(data.totalNumBooks ?? 0);
-        setTotalPages(Math.ceil((data.totalNumBooks ?? 0) / booksPerPage));
+        setBooks(data.books);
+        setTotalPages(Math.ceil(data.totalNumBooks / pageSize));
       } catch (error) {
-        console.error('Error fetching books:', error);
-        setBooks([]);
-        setTotalBooksCount(0);
-        setTotalPages(0);
-        setErrorMessage(
-          'Unable to load books right now. Make sure the backend is running on https://localhost:5000.'
-        );
+        setError((error as Error).message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchBooks();
-  }, [currentPage, booksPerPage, sortDirection, selectedCategories]); // Re-runs whenever these change
+    loadBooks();
+  }, [pageSize, pageNum, selectedCategories, sortDirection]);
 
-  // Going to the page before it
-  const goToPreviousPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const handleDelete = async (bookID: number) => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this book?'
+    );
+    if (!confirmDelete) return;
+    try {
+      await deleteBook(bookID);
+      setBooks(books.filter((b) => b.bookID !== bookID));
+    } catch (error) {
+      alert('Failed to delete book. Please try again.');
+      throw error;
+    }
   };
 
-  // Going to the next page
-  const goToNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  };
-
-  // When the user changes the number of books listed per page, it goes back to the first page
-  const handleBooksPerPageChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setBooksPerPage(Number(event.target.value));
-    setCurrentPage(1);
-  };
+  if (loading) return <p>Loading projects...</p>;
+  if (error) return <p className="text-red-500">Error: {error}</p>;
 
   // Toggles the sort direction, triggering a re-fetch via useEffect
   const toggleSortByTitle = () => {
-    setSortDirection((prev) => {
-      if (prev === 'none' || prev === 'desc') return 'asc';
-      return 'desc';
-    });
-    setCurrentPage(1);
+    setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    setPageNum(1);
   };
 
   // The data displayed
   return (
     <>
+      {!showForm && (
+        <button
+          className="btn btn-success mb-3"
+          onClick={() => setShowForm(true)}
+        >
+          Add Book
+        </button>
+      )}
+
+      {showForm && (
+        <NewBookForm
+          onSuccess={() => {
+            setShowForm(false);
+            fetchBooks(pageSize, pageNum, sortDirection, []).then((data) =>
+              setBooks(data.books)
+            );
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
+
+      {editingBook && (
+        <EditBookForm
+          book={editingBook}
+          onSuccess={() => {
+            setEditingBook(null);
+            fetchBooks(pageSize, pageNum, sortDirection, []).then((data) =>
+              setBooks(data.books)
+            );
+          }}
+          onCancel={() => setEditingBook(null)}
+        />
+      )}
+
       <section className="card border-0 shadow-sm mb-4 books-controls-card">
         <div className="card-body d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
-          <div className="d-flex flex-wrap align-items-center gap-2">
-            <label
-              htmlFor="booksPerPage"
-              className="form-label mb-0 fw-semibold"
-            >
-              Books per page:
-            </label>
-            {/* Where the user gets to select how many books per page */}
-            <select
-              id="booksPerPage"
-              className="form-select w-auto"
-              value={booksPerPage}
-              onChange={handleBooksPerPageChange}
-            >
-              <option value={3}>3</option>
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={15}>15</option>
-              <option value={20}>20</option>
-              {/* Uses the total count from the API for the "All" option */}
-              <option value={totalBooksCount > 0 ? totalBooksCount : 100}>
-                All
-              </option>
-            </select>
-          </div>
           {/* Button for the user to sort alphabetically or reverse */}
           <button
             className="btn btn-outline-light px-3"
             onClick={toggleSortByTitle}
           >
-            Sort by Title: {sortDirection === 'desc' ? 'A-Z' : 'Z-A'}
+            Sort by Title: {sortDirection === 'asc' ? 'A-Z' : 'Z-A'}
           </button>
         </div>
       </section>
 
       {/* Displays the paginated books directly from state */}
       <section className="row g-4">
-        {errorMessage && (
+        {error && (
           <div className="col-12">
             <div className="alert alert-warning" role="alert">
-              {errorMessage}
+              {error}
             </div>
           </div>
         )}
@@ -171,43 +171,53 @@ function BooksList({ selectedCategories }: { selectedCategories: string[] }) {
                     <span className="fw-semibold text-secondary">Price</span>
                     <span className="fw-bold text-success">${b.price}</span>
                   </li>
+                </ul>
+
+                <div className="book-card-actions mt-3">
                   <button
-                    className="btn btn-success"
+                    className="btn btn-success btn-lg w-100"
                     onClick={() =>
                       navigate(`/purchase/${b.title}/${b.bookID}/${b.price}`)
                     }
                   >
                     Purchase
                   </button>
-                </ul>
+
+                  <div className="row g-2 mt-0">
+                    <div className="col-6">
+                      <button
+                        className="btn btn-primary w-100"
+                        onClick={() => setEditingBook(b)}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <div className="col-6">
+                      <button
+                        className="btn btn-danger w-100"
+                        onClick={() => handleDelete(b.bookID)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
         ))}
       </section>
 
-      {/* The page change buttons and display */}
-      {totalPages > 1 && (
-        <nav className="d-flex justify-content-center align-items-center gap-3 mt-5 mb-2">
-          <button
-            className="btn btn-outline-primary"
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span className="fw-semibold text-secondary">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            className="btn btn-outline-primary"
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </nav>
-      )}
+      <Pagination
+        currentPage={pageNum}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        onPageChange={setPageNum}
+        onPageSizeChange={(newSize) => {
+          setPageSize(newSize);
+          setPageNum(1);
+        }}
+      />
     </>
   );
 }
