@@ -18,7 +18,7 @@ options.UseSqlite(builder.Configuration.GetConnectionString("BookstoreConnection
 builder.Services.AddCors(options => 
     options.AddPolicy("AllowReactAppBlah",
     policy => {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins("http://localhost:3000", "https://bookapppeterbackend-ggeyhpakh2fgcdf4.francecentral-01.azurewebsites.net")
         .AllowAnyMethod()
         .AllowAnyHeader();
     }));
