@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e1b07400-c2dd-478a-b811-b4a1ee1bbe94/resourceGroups/appsvc_windows_francecentral/providers/Microsoft.Web/sites/BookAppPeterBackend",
+    "appService.deploySubpath": "backend\\Mission11_Young\\Mission11_Young\\publish"
+}
